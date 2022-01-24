@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index(){
-        $products = Product::orderBy('description', 'asc')->get();
+        $products = DB::table('products')->get(); //->where('price','>','3')->get(); -->Clausula where que filtra por los productos con precio mayor de 3
         return view('products.index', compact('products'));
     }
 
