@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Telegram;
 
 class ProductController extends Controller
 {
@@ -46,7 +45,12 @@ class ProductController extends Controller
     }
 
     public function updatedActivity(){
-        $activity = \Telegram::getUpdates();
-        dd($activity);
+        $text = 'Aquí adjunta lo quieras enviar.';
+
+        \Telegram::sendMessage([
+        'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
+        'parse_mode' => 'HTML',
+        'text' => $text
+        ]);
     }
 }
